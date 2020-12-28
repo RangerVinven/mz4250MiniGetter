@@ -2,6 +2,9 @@ package com.company;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
     // Function to get the location of the forward button
@@ -36,8 +39,15 @@ public class Main {
         driver.get("https://www.shapeways.com/designer/mz4250/creations?s=0#more-products");
 
         // Calls the function to get the location of the forward button
+        WebElement forwardBtn = forwardBtnGetter(driver);
+
         // Gets all the products with document.findElementsByClassName("product-url");
+        List<WebElement> products = new ArrayList<>();
+        products.addAll(driver.findElements(By.className("product-url")));
+
         // Removes each duplicate of the found products
+
+
         // Gets the current url and saves it
         // Loops through the found products
             // Goes to the url of the iteration
