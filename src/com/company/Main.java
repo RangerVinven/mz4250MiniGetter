@@ -69,15 +69,8 @@ public class Main {
 
                 Thread.sleep(5000);
 
-                // Find the "Download Product" by finding all the anchor tags and seeing which has a href with "/download/" in it
-                List<WebElement> aTags = new ArrayList<>(driver.findElements(By.tagName("a")));
-                WebElement downloadProduct = null;
-                for (int j = 0; j <= aTags.size(); j++) {
-                    if(aTags.get(j).getAttribute("href").contains("/download/")); {
-                        downloadProduct = aTags.get(j);
-                        j = aTags.size();
-                    }
-                }
+                // Gets the div that the download product button is in, gets the a tag that's in it
+                WebElement downloadProduct = driver.findElement(By.className("product-page-download hide-tablet hide-mobile")).findElement(By.tagName("a"));
                 
                 // Clicks the found download product button
                 downloadProduct.click();
