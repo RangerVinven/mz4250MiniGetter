@@ -1,5 +1,4 @@
 package com.company;
-import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -9,29 +8,39 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         // Makes the driver
+        //System.setProperty("webdriver.gecko.driver", "D:\\webdriver\\geckodriver.exe");
         WebDriver driver = new FirefoxDriver();
 
         // Login to the website (https://www.shapeways.com/)
         driver.get("https://www.shapeways.com/login");
+
+        Thread.sleep(10000);
 
         String username = "miniGetter";
         String password = "miniGetter123";
 
         WebElement usernameBox = driver.findElement(By.id("login_username"));
         WebElement passwordBox = driver.findElement(By.id("login_password"));
+
         WebElement signInButton = driver.findElement(By.id("sign_in_button"));
 
         usernameBox.sendKeys(username);
         passwordBox.sendKeys(password);
 
+        Thread.sleep(3000);
+
         signInButton.click();
 
         Thread.sleep(3000);
 
+        // Stops the program to allow the user to do the capcha
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+
         // Goes to mz4250's minis (https://www.shapeways.com/designer/mz4250/creations?s=0#more-products)
         driver.get("https://www.shapeways.com/designer/mz4250/creations?s=0#more-products");
 
-        Thread.sleep(3000);
+        Thread.sleep(5000);
 
         // Gets the amount of pages with the xpath
         int numOfPages = Integer.valueOf(driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div[2]/div/a[6]/span")).getText());
