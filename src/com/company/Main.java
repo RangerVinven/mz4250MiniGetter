@@ -3,6 +3,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -59,21 +61,35 @@ public class Main {
             products.clear();
             products.addAll(productsNoDuplicates);
 
+            // Gets the random characters in the url (e.g, "https://www.shapeways.com/product/8H9RUT284/aarakocra-bard-2?optionId=79381935&li=user-profile")
+            // In the above url, the "8H9RUT284" is the random characters
+            List<String> productIDs = new ArrayList<>();
+
+            for (int q = 0; q <= products.size(); q++) {
+
+                // Removes the start of the string
+                String productID = products.get(q).getAttribute("href").replace("https://www.shapeways.com/product", "");
+
+                // Finds the product ID
+                Pattern pattern = Pattern.compile("\\/\\w*\\/", Pattern.CASE_INSENSITIVE);
+                Matcher matcher = pattern.matcher(productID);
+
+                // Result of match
+                String matchFound = matcher.group();
+
+                productIDs.add(matchFound);
+
+            }
+
+            System.out.println(productIDs);
+
             // Gets the current url and saves it
             String currentURL = driver.getCurrentUrl();
 
-            // Loops through the found products
-            for (int x = 0; x < products.size(); x++) {
-                // Goes to the url of the iteration
-                driver.get(products.get(x).getAttribute("href"));
-
-                Thread.sleep(5000);
-
-                // Gets the div that the download product button is in, gets the a tag that's in it
-                WebElement downloadProduct = driver.findElement(By.className("product-page-download hide-tablet hide-mobile")).findElement(By.tagName("a"));
-                
-                // Clicks the found download product button
-                downloadProduct.click();
+            // Loops through the download links
+            for (int p = 0; p <= productIDs.size(); p++) {
+                Thread.sleep(3000);
+                driver.get(productIDs.get(p));
             }
 
             // Goes back to the saved url
