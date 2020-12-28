@@ -34,8 +34,8 @@ public class Main {
         Thread.sleep(3000);
 
         // Stops the program to allow the user to do the capcha
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+//        Scanner scanner = new Scanner(System.in);
+//        scanner.nextLine();
 
         // Goes to mz4250's minis (https://www.shapeways.com/designer/mz4250/creations?s=0#more-products)
         driver.get("https://www.shapeways.com/designer/mz4250/creations?s=0#more-products");
