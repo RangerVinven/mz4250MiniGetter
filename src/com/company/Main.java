@@ -16,6 +16,8 @@ public class Main {
 
         Thread.sleep(10000);
 
+        driver.findElement(By.xpath("/html/body/ul[1]/li/div/div/span/div/div/div[2]/a[1]")).click();
+
         String username = "miniGetter";
         String password = "miniGetter123";
 
@@ -34,8 +36,8 @@ public class Main {
         Thread.sleep(3000);
 
         // Stops the program to allow the user to do the capcha
-//        Scanner scanner = new Scanner(System.in);
-//        scanner.nextLine();
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
 
         // Goes to mz4250's minis (https://www.shapeways.com/designer/mz4250/creations?s=0#more-products)
         driver.get("https://www.shapeways.com/designer/mz4250/creations?s=0#more-products");
@@ -67,9 +69,16 @@ public class Main {
 
                 Thread.sleep(5000);
 
-                // Find the "Download Product" with the class "btn sw--margin-bottom-2"
-                WebElement downloadProduct = driver.findElement(By.className("btn sw--margin-bottom-2"));
-
+                // Find the "Download Product" by finding all the anchor tags and seeing which has a href with "/download/" in it
+                List<WebElement> aTags = new ArrayList<>(driver.findElements(By.tagName("a")));
+                WebElement downloadProduct = null;
+                for (int j = 0; j <= aTags.size(); j++) {
+                    if(aTags.get(j).getAttribute("href").contains("/download/")); {
+                        downloadProduct = aTags.get(j);
+                        j = aTags.size();
+                    }
+                }
+                
                 // Clicks the found download product button
                 downloadProduct.click();
             }
