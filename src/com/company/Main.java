@@ -68,16 +68,13 @@ public class Main {
             for (int q = 0; q <= products.size(); q++) {
 
                 // Removes the start of the string
-                String productID = products.get(q).getAttribute("href").replace("https://www.shapeways.com/product", "");
+                String productID = products.get(q).getAttribute("href").replace("https://www.shapeways.com/product/", "");
+                System.out.println(productID);
 
-                // Finds the product ID
-                Pattern pattern = Pattern.compile("\\/\\w*\\/", Pattern.CASE_INSENSITIVE);
-                Matcher matcher = pattern.matcher(productID);
+                // Takes out the / to the end (leaving only the product's id)
+                productID = productID.replaceAll("\\/.*", productID);
 
-                // Result of match
-                String matchFound = matcher.group();
-
-                productIDs.add(matchFound);
+                productIDs.add(productID);
 
             }
 
@@ -89,7 +86,7 @@ public class Main {
             // Loops through the download links
             for (int p = 0; p <= productIDs.size(); p++) {
                 Thread.sleep(3000);
-                driver.get(productIDs.get(p));
+                driver.get("https://www.shapeways.com/product/download/" + productIDs.get(p));
             }
 
             // Goes back to the saved url
